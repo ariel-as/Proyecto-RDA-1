@@ -1,0 +1,12 @@
+{
+  "name": "fitzone",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio FITZONE gimnasio - validacion con CI/CD en GitHub Actions",
+  "scripts": {
+    "test": "htmlhint index.html"
+  },
+  "devDependencies": {
+    "htmlhint": "^1.1.4"
+  }
+}
