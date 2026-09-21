@@ -4,9 +4,12 @@
   "private": true,
   "description": "Sitio FITZONE gimnasio - validacion con CI/CD en GitHub Actions",
   "scripts": {
-    "test": "htmlhint index.html"
+    "test": "htmlhint index.html",
+    "build:css": "tailwindcss -i css/tailwind.css -o css/app.css --minify"
   },
   "devDependencies": {
-    "htmlhint": "^1.1.4"
+    "@tailwindcss/cli": "^4.3.3",
+    "htmlhint": "^1.1.4",
+    "tailwindcss": "^4.3.3"
   }
 }
