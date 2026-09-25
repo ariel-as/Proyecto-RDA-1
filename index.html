@@ -3,16 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="FITZONE gimnasio de dos pisos: entrenamiento, clases de boxeo y bailoterapia, membresías mensuales desde $35 y tienda con productos de hidratación, nutrición, ropa y accesorios deportivos.">
-  <title>FITZONE | Gimnasio y tienda deportiva</title>
+  <meta name="description" content="PLANETA FITNESS gimnasio de dos pisos: entrenamiento, clases de boxeo y bailoterapia, membresías mensuales desde $35 y tienda con productos de hidratación, nutrición, ropa y accesorios deportivos.">
+  <title>PLANETA FITNESS | Gimnasio y tienda deportiva</title>
   <link rel="stylesheet" href="css/app.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido principal</a>
 
   <header class="sticky top-0 z-50 border-b border-edge bg-bg/85 backdrop-blur-md">
     <div class="container relative flex items-center justify-between gap-4 py-3">
-      <a class="whitespace-nowrap text-xl font-black tracking-[0.06em] text-white no-underline" href="#inicio">FIT<span class="text-accent">ZONE</span></a>
+      <a class="inline-flex items-center gap-2 no-underline" href="#inicio" aria-label="PLANETA FITNESS, inicio">
+        <img src="images/logo.png" alt="" class="h-8 w-auto sm:h-9">
+        <span class="whitespace-nowrap text-sm font-black tracking-[0.06em] text-white sm:text-lg">PLANETA <span class="text-accent">FITNESS</span></span>
+      </a>
 
       <nav id="main-nav" class="absolute left-0 right-0 top-full z-40 hidden max-lg:flex-col max-lg:gap-1 max-lg:bg-bg max-lg:px-4 max-lg:py-2 max-lg:shadow-xl lg:static lg:flex lg:flex-row lg:items-center lg:gap-7" aria-label="Navegación principal">
         <ul class="m-0 flex list-none flex-col p-0 lg:flex-row lg:items-center lg:gap-7">
@@ -51,15 +56,25 @@
 
   <main id="main" tabindex="-1">
     <section id="inicio" class="hero relative overflow-hidden border-b border-edge" aria-labelledby="hero-title">
-      <div class="container grid items-center py-20 md:py-32">
-        <p class="fz-eyebrow">Gimnasio · Entrenamiento · Clases grupales</p>
-        <h1 id="hero-title" class="mt-2 max-w-[14ch] text-4xl font-extrabold uppercase leading-[1.08] tracking-[0.01em] sm:text-5xl md:text-7xl">Entrena. Supera. <span class="text-accent">Evoluciona.</span></h1>
-        <p class="mt-5 max-w-[52ch] text-lg text-muted">Un gimnasio de dos pisos con tres entrenadores y rutinas creadas según tu nivel. La constancia empieza hoy.</p>
-        <div class="mt-8 flex flex-wrap gap-4">
-          <a href="#planes" class="fz-btn fz-btn-primary">Ver planes</a>
-          <a href="#tienda" class="fz-btn fz-btn-outline">Tienda FITZONE</a>
-          <a href="#contacto" class="fz-btn fz-btn-ghost">Contáctanos</a>
+      <div class="pointer-events-none absolute left-[68%] top-1/2 hidden h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-[120px] lg:block" aria-hidden="true"></div>
+      <div class="container grid items-center gap-12 py-20 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 xl:gap-14">
+        <div>
+          <p class="fz-eyebrow">Gimnasio · Entrenamiento · Clases grupales</p>
+          <h1 id="hero-title" class="mt-3 text-[clamp(2.5rem,8.5vw,4.5rem)] font-extrabold uppercase leading-[1.04] tracking-[0.01em]">
+            <span class="block">Entrena.</span>
+            <span class="block">Supera.</span>
+            <span class="block text-accent">Evoluciona.</span>
+          </h1>
+          <p class="mt-6 max-w-[52ch] text-lg text-muted lg:max-w-[46ch]">Un gimnasio de dos pisos con tres entrenadores y rutinas creadas según tu nivel. La constancia empieza hoy.</p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#planes" class="fz-btn fz-btn-primary">Ver planes</a>
+            <a href="#tienda" class="fz-btn fz-btn-outline">Tienda PLANETA FITNESS</a>
+            <a href="#contacto" class="fz-btn fz-btn-ghost">Contáctanos</a>
+          </div>
         </div>
+        <figure class="m-0 flex items-center justify-center">
+          <img src="images/logo.png" alt="Logo de PLANETA FITNESS" class="w-full max-w-[min(78vw,260px)] object-contain drop-shadow-[0_0_30px_rgba(250,204,21,0.35)] sm:max-w-[340px] lg:max-w-[400px] xl:max-w-[460px]">
+        </figure>
       </div>
     </section>
 
@@ -134,7 +149,7 @@
           </li>
           <li class="fz-card p-6">
             <svg class="h-11 w-11 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 20s-7-4.5-9.5-9C.8 8 2.5 4.5 6 4.5c2 0 3.4 1.2 4 2.3.6-1.1 2-2.3 4-2.3 3.5 0 5.2 3.5 3.5 6.5C19 15.5 12 20 12 20z"></path>
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path>
             </svg>
             <h3 class="mt-4 text-sm font-bold uppercase tracking-[0.08em]">Cardio</h3>
             <p class="mt-1 text-sm text-muted">Máquinas y rutinas para mejorar tu resistencia y quemar energía.</p>
@@ -244,7 +259,7 @@
         <header class="mx-auto mb-10 max-w-[640px] text-center">
           <p class="fz-eyebrow">Atención nutricional</p>
           <h2 id="nutricion-title" class="mt-1 text-3xl font-extrabold uppercase tracking-[0.02em] md:text-4xl">Nutrición</h2>
-          <p class="mt-3 text-muted">Complementa tu entrenamiento con una alimentación adecuada para alcanzar tus objetivos. FITZONE cuenta con atención nutricional dentro de sus instalaciones.</p>
+          <p class="mt-3 text-muted">Complementa tu entrenamiento con una alimentación adecuada para alcanzar tus objetivos. PLANETA FITNESS cuenta con atención nutricional dentro de sus instalaciones.</p>
         </header>
 
         <ul class="grid list-none gap-6 p-0 sm:grid-cols-2 lg:grid-cols-3">
@@ -281,8 +296,8 @@
         <div class="fz-card mx-auto mt-10 max-w-2xl p-8 text-center">
           <h3 class="text-lg font-extrabold uppercase tracking-[0.02em]">¿Quieres agendar una cita?</h3>
           <p class="mt-2 text-muted">Agenda directamente con nuestra nutricionista y coordina tu atención dentro del gimnasio.</p>
-          <a href="tel:+593959651239" class="fz-btn fz-btn-primary mt-6" aria-label="Llamar para agendar cita al 095 965 1239">Agendar cita</a>
-          <p class="mt-4 text-lg font-bold text-white">095 965 1239</p>
+          <a href="tel:+593959651239" class="fz-btn fz-btn-primary mt-6" aria-label="Llamar para agendar cita al 095&nbsp;965&nbsp;1239">Agendar cita</a>
+          <p class="mt-4 text-lg font-bold text-white">095&nbsp;965&nbsp;1239</p>
         </div>
       </div>
     </section>
@@ -323,7 +338,7 @@
           <div>
             <p class="fz-eyebrow">Quiénes somos</p>
             <h2 id="nosotros-title" class="mt-1 text-3xl font-extrabold uppercase tracking-[0.02em] md:text-4xl">Nosotros</h2>
-            <p class="mt-3 text-muted">FITZONE es un gimnasio de dos pisos pensado para que cada miembro entrene según su nivel, con clases grupales, entrenadores disponibles y productos para complementar tu sesión.</p>
+            <p class="mt-3 text-muted">PLANETA FITNESS es un gimnasio de dos pisos pensado para que cada miembro entrene según su nivel, con clases grupales, entrenadores disponibles y productos para complementar tu sesión.</p>
           </div>
           <ul class="m-0 list-none p-0">
             <li class="flex items-center gap-3 border-b border-edge py-3"><span class="h-2 w-2 flex-none rounded-sm bg-accent" aria-hidden="true"></span>Dos pisos de entrenamiento</li>
@@ -339,7 +354,7 @@
     <section id="tienda" class="fz-section" aria-labelledby="tienda-title">
       <div class="container">
         <header class="mb-8 max-w-[640px]">
-          <p class="fz-eyebrow">Tienda FITZONE</p>
+          <p class="fz-eyebrow">Tienda PLANETA FITNESS</p>
           <h2 id="tienda-title" class="mt-1 text-3xl font-extrabold uppercase tracking-[0.02em] md:text-4xl">Productos</h2>
           <p class="mt-3 text-muted">Complementa tu entrenamiento con productos de hidratación, nutrición, ropa y accesorios deportivos.</p>
         </header>
@@ -361,7 +376,7 @@
             <p class="mt-3 text-muted">¿Tienes dudas sobre planes, clases o rutinas? Escríbenos o visítanos en el gimnasio.</p>
             <ul class="mt-6 grid list-none gap-4 p-0 text-white">
               <li><strong>Teléfono / WhatsApp:</strong> +593 9X XXX XXXX</li>
-              <li><strong>Correo:</strong> <a class="font-semibold text-accent underline underline-offset-4" href="mailto:contacto@fitzone.ec">contacto@fitzone.ec</a></li>
+              <li><strong>Correo:</strong> <a class="font-semibold text-accent underline underline-offset-4" href="mailto:contacto@planetafitness.ec">contacto@planetafitness.ec</a></li>
               <li><strong>Dirección:</strong> Av. Ejemplo 123 (por definir)</li>
               <li><strong>Horario:</strong> Lun–Vie 06:00–21:00 · Sáb 09:00–12:00</li>
             </ul>
@@ -396,7 +411,7 @@
   <footer class="border-t border-edge bg-[#080808] pt-12">
     <div class="container">
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr]">
-        <p class="m-0 text-xl font-black tracking-[0.06em]">FIT<span class="text-accent">ZONE</span></p>
+        <p class="m-0 text-xl font-black tracking-[0.06em]">PLANETA <span class="text-accent">FITNESS</span></p>
         <nav aria-label="Navegación del pie de página">
           <ul class="m-0 grid list-none gap-1 p-0">
             <li><a class="inline-flex min-h-11 items-center text-[0.95rem] font-medium text-muted no-underline hover:text-white" href="#planes">Planes</a></li>
@@ -407,7 +422,7 @@
         </nav>
         <p class="m-0 text-[0.95rem] text-muted"><strong class="block text-sm font-bold uppercase tracking-[0.08em] text-white">Horario</strong>Lunes a viernes: 06:00–21:00<br>Sábados: 09:00–12:00</p>
       </div>
-      <p class="mt-8 border-t border-edge py-4 text-[0.85rem] text-muted">© 2026 FITZONE. Tienda y sitio informativo — datos de contacto de ejemplo.</p>
+      <p class="mt-8 border-t border-edge py-4 text-[0.85rem] text-muted">© 2026 PLANETA FITNESS. Tienda y sitio informativo — datos de contacto de ejemplo.</p>
     </div>
   </footer>
 
@@ -466,7 +481,7 @@
         </div>
         <div class="field mb-6">
           <label class="label" for="cliente-direccion">Dirección de entrega <span class="font-bold text-accent">*</span></label>
-          <input class="input" type="text" id="cliente-direccion" name="cliente-direccion" autocomplete="street-address" placeholder="Tu dirección" required aria-describedby="cliente-direccion-error">
+          <input class="input" type="text" id="cliente-direccion" name="cliente-direccion" autocomplete="address-line1" placeholder="Tu dirección" required aria-describedby="cliente-direccion-error">
           <p class="fz-field-error" id="cliente-direccion-error" role="alert"></p>
         </div>
 

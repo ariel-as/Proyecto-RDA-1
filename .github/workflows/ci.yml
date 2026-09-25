@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   test:
-    name: Pruebas
+    name: Pruebas (HTML5, semántica, WCAG AA, ARIA, seguridad, adaptabilidad)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,10 +28,25 @@ jobs:
           node-version: 20
 
       - name: Instalar dependencias
-        run: npm install
+        run: npm ci
 
-      - name: Ejecutar pruebas
+      - name: Compilar CSS (Tailwind v4)
+        run: npm run build:css
+
+      - name: Validar que el CSS compilado este versionado
+        run: git diff --exit-code -- css/app.css
+
+      - name: HTML5 y sintaxis (htmlhint)
         run: npm test
+
+      - name: HTML semantico + WCAG AA + ARIA (html-validate)
+        run: npm run test:semantic
+
+      - name: Accesibilidad WCAG AA / ARIA (axe-core)
+        run: npm run test:a11y
+
+      - name: Seguridad de enlaces (YouTube/https) y adaptabilidad
+        run: npm run test:security
 
   deploy:
     name: Publicar en GitHub Pages
@@ -47,10 +62,17 @@ jobs:
       - name: Configurar Pages
         uses: actions/configure-pages@v5
 
+      - name: Preparar artefacto del sitio
+        run: |
+          mkdir -p site
+          cp index.html site/
+          cp .nojekyll site/
+          cp -r css js images site/
+
       - name: Subir artefacto del sitio
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: site
 
       - name: Desplegar en GitHub Pages
         id: deployment

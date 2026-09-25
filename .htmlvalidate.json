@@ -1,0 +1,10 @@
+{
+  "extends": ["html-validate:recommended", "html-validate:a11y"],
+  "rules": {
+    "attribute-boolean-style": "off",
+    "no-inline-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "tel-non-breaking": ["error", { "ignoreClasses": ["fz-btn"] }]
+  }
+}

@@ -1,4 +1,4 @@
-/* FITZONE — Comportamiento del sitio y ecommerce */
+/* PLANETA FITNESS — Comportamiento del sitio y ecommerce */
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -10,10 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* ---------- Almacenamiento ---------- */
 
-var CART_KEY = "fitzone_carrito";
-var carrito = []; /* [{ id, cantidad }] */
-var productos = [];
-var categoriaActiva = "Todos";
+const CART_KEY = "fitzone_carrito";
+let carrito = []; /* [{ id, cantidad }] */
+let productos = [];
+let categoriaActiva = "Todos";
 
 function guardarCarrito() {
   try {
@@ -25,7 +25,7 @@ function guardarCarrito() {
 
 function cargarCarrito() {
   try {
-    var data = JSON.parse(localStorage.getItem(CART_KEY));
+    const data = JSON.parse(localStorage.getItem(CART_KEY));
     carrito = Array.isArray(data) ? data : [];
   } catch (error) {
     carrito = [];
@@ -39,56 +39,50 @@ function formatearPrecio(valor) {
 }
 
 function productoPorId(id) {
-  return productos.find(function (p) {
-    return p.id === id;
-  });
+  return productos.find((p) => p.id === id);
 }
 
 function totalArticulos() {
-  return carrito.reduce(function (suma, item) {
-    return suma + item.cantidad;
-  }, 0);
+  return carrito.reduce((suma, item) => suma + item.cantidad, 0);
 }
 
 function totalPedido() {
-  return carrito.reduce(function (suma, item) {
-    var p = productoPorId(item.id);
+  return carrito.reduce((suma, item) => {
+    const p = productoPorId(item.id);
     return suma + (p ? p.precio * item.cantidad : 0);
   }, 0);
 }
 
 function mensajeCarrito(n) {
-  var label = "Carrito de compras, " + n + " producto";
+  const label = "Carrito de compras, " + n + " producto";
   return n === 1 ? label : label + "s";
 }
 
 /* ---------- Menú móvil accesible ---------- */
 
 function initMenu() {
-  var btn = document.getElementById("menu-btn");
-  var nav = document.getElementById("main-nav");
+  const btn = document.getElementById("menu-btn");
+  const nav = document.getElementById("main-nav");
   if (!btn || !nav) {
     return;
   }
 
-  function estaAbierto() {
-    return btn.getAttribute("aria-expanded") === "true";
-  }
+  const estaAbierto = () => btn.getAttribute("aria-expanded") === "true";
 
-  function abrir() {
+  const abrir = () => {
     nav.classList.add("nav-open");
     btn.setAttribute("aria-expanded", "true");
-  }
+  };
 
-  function cerrar(devolverFoco) {
+  const cerrar = (devolverFoco) => {
     nav.classList.remove("nav-open");
     btn.setAttribute("aria-expanded", "false");
     if (devolverFoco) {
       btn.focus();
     }
-  }
+  };
 
-  btn.addEventListener("click", function () {
+  btn.addEventListener("click", () => {
     if (estaAbierto()) {
       cerrar(true);
     } else {
@@ -96,19 +90,19 @@ function initMenu() {
     }
   });
 
-  nav.querySelectorAll("a, button").forEach(function (el) {
-    el.addEventListener("click", function () {
+  nav.querySelectorAll("a, button").forEach((el) => {
+    el.addEventListener("click", () => {
       cerrar(false);
     });
   });
 
-  document.addEventListener("keydown", function (e) {
+  document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && estaAbierto()) {
       cerrar(true);
     }
   });
 
-  window.addEventListener("resize", function () {
+  window.addEventListener("resize", () => {
     if (window.innerWidth >= 1024 && estaAbierto()) {
       cerrar(false);
     }
@@ -118,24 +112,23 @@ function initMenu() {
 /* ---------- Foco y diálogos ---------- */
 
 function crearTrampaFoco(contenedor) {
-  var claves = ["button", "[href]", "input", "select", "textarea", '[tabindex]:not([tabindex="-1"])'].join(",");
+  const claves = ["button", "[href]", "input", "select", "textarea", '[tabindex]:not([tabindex="-1"])'].join(",");
 
-  function obtenibles() {
-    return Array.prototype.filter.call(contenedor.querySelectorAll(claves), function (el) {
-      return !el.hasAttribute("disabled") && el.closest("[aria-hidden='true']") === null;
-    });
-  }
+  const obtenibles = () =>
+    Array.prototype.filter.call(contenedor.querySelectorAll(claves), (el) =>
+      !el.hasAttribute("disabled") && el.closest("[aria-hidden='true']") === null
+    );
 
-  return function (e) {
+  return (e) => {
     if (e.key !== "Tab") {
       return;
     }
-    var lista = obtenibles();
+    const lista = obtenibles();
     if (lista.length === 0) {
       return;
     }
-    var primero = lista[0];
-    var ultimo = lista[lista.length - 1];
+    const primero = lista[0];
+    const ultimo = lista[lista.length - 1];
     if (e.shiftKey && document.activeElement === primero) {
       e.preventDefault();
       ultimo.focus();
@@ -152,16 +145,16 @@ function bloqueaScroll(activo) {
 
 /* ---------- Carrito ---------- */
 
-var carritoItemsEl;
-var carritoFooterEl;
-var carritoVacioEl;
-var carritoDrawerEl;
-var carritoOverlayEl;
-var cartTriggerEl;
-var cartCountEl;
-var btnFinalizarEl;
-var trampaCarrito;
-var trampaCheckout;
+let carritoItemsEl;
+let carritoFooterEl;
+let carritoVacioEl;
+let carritoDrawerEl;
+let carritoOverlayEl;
+let cartTriggerEl;
+let cartCountEl;
+let btnFinalizarEl;
+let trampaCarrito;
+let trampaCheckout;
 
 function initCarrito() {
   carritoItemsEl = document.getElementById("carrito-items");
@@ -175,14 +168,14 @@ function initCarrito() {
 
   cargarCarrito();
 
-  carritoItemsEl.addEventListener("click", function (e) {
-    var boton = e.target.closest("button[data-accion]");
+  carritoItemsEl.addEventListener("click", (e) => {
+    const boton = e.target.closest("button[data-accion]");
     if (!boton) {
       return;
     }
-    var articulo = boton.closest("article");
-    var id = articulo ? articulo.dataset.id : null;
-    var accion = boton.dataset.accion;
+    const articulo = boton.closest("article");
+    const id = articulo ? articulo.dataset.id : null;
+    const accion = boton.dataset.accion;
     if (!id) {
       return;
     }
@@ -196,22 +189,20 @@ function initCarrito() {
   });
 
   document.getElementById("btn-vaciar").addEventListener("click", vaciarCarrito);
-  document.getElementById("btn-continuar").addEventListener("click", function () {
+  document.getElementById("btn-continuar").addEventListener("click", () => {
     cerrarCarrito(false);
   });
-  document.getElementById("seguir-comprando-vacio").addEventListener("click", function () {
+  document.getElementById("seguir-comprando-vacio").addEventListener("click", () => {
     cerrarCarrito(false);
   });
-  document.getElementById("cerrar-carrito").addEventListener("click", function () {
+  document.getElementById("cerrar-carrito").addEventListener("click", () => {
     cerrarCarrito(true);
   });
-  cartTriggerEl.addEventListener("click", function () {
-    abrirCarrito();
-  });
-  carritoOverlayEl.addEventListener("click", function () {
+  cartTriggerEl.addEventListener("click", abrirCarrito);
+  carritoOverlayEl.addEventListener("click", () => {
     cerrarCarrito(true);
   });
-  btnFinalizarEl.addEventListener("click", function () {
+  btnFinalizarEl.addEventListener("click", () => {
     if (carrito.length === 0) {
       return;
     }
@@ -222,9 +213,7 @@ function initCarrito() {
 }
 
 function agregarAlCarrito(id) {
-  var item = carrito.find(function (i) {
-    return i.id === id;
-  });
+  const item = carrito.find((i) => i.id === id);
   if (item) {
     item.cantidad += 1;
   } else {
@@ -236,9 +225,7 @@ function agregarAlCarrito(id) {
 }
 
 function cambiarCantidad(id, delta) {
-  var item = carrito.find(function (i) {
-    return i.id === id;
-  });
+  const item = carrito.find((i) => i.id === id);
   if (!item) {
     return;
   }
@@ -251,9 +238,7 @@ function cambiarCantidad(id, delta) {
 }
 
 function eliminarProducto(id) {
-  carrito = carrito.filter(function (item) {
-    return item.id !== id;
-  });
+  carrito = carrito.filter((item) => item.id !== id);
   guardarCarrito();
   renderCarrito();
 }
@@ -266,7 +251,7 @@ function vaciarCarrito() {
 }
 
 function renderCarrito() {
-  var hayArticulos = carrito.length > 0;
+  const hayArticulos = carrito.length > 0;
   carritoVacioEl.classList.toggle("hidden", hayArticulos);
   carritoItemsEl.classList.toggle("hidden", !hayArticulos);
   carritoFooterEl.classList.toggle("hidden", !hayArticulos);
@@ -277,25 +262,25 @@ function renderCarrito() {
     carritoItemsEl.innerHTML = "";
   }
 
-  var total = totalPedido();
+  const total = totalPedido();
   document.getElementById("carrito-subtotal").textContent = formatearPrecio(total);
   document.getElementById("carrito-total").textContent = formatearPrecio(total);
   document.getElementById("checkout-total").textContent = formatearPrecio(total);
 
-  var n = totalArticulos();
+  const n = totalArticulos();
   cartCountEl.textContent = String(n);
   cartTriggerEl.setAttribute("aria-label", mensajeCarrito(n));
 }
 
 function lineaCarrito(item) {
-  var p = productoPorId(item.id);
+  const p = productoPorId(item.id);
   if (!p) {
     return "";
   }
-  var subtotal = p.precio * item.cantidad;
-  var menos = "−";
-  var mas = "+";
-  var equis = "✕";
+  const subtotal = p.precio * item.cantidad;
+  const menos = "−";
+  const mas = "+";
+  const equis = "✕";
   return (
     '<article class="flex gap-4" data-id="' + p.id + '">' +
       '<img class="h-20 w-20 flex-none rounded-xl object-cover" src="' + imagenProducto(p) + '" alt="' + p.descripcion + '">' +
@@ -353,8 +338,8 @@ function escCarrito(e) {
 
 /* ---------- Checkout ---------- */
 
-var checkoutOverlayEl;
-var checkoutFormEl;
+let checkoutOverlayEl;
+let checkoutFormEl;
 
 function initCheckout() {
   checkoutOverlayEl = document.getElementById("checkout-overlay");
@@ -363,7 +348,7 @@ function initCheckout() {
 
   document.getElementById("cerrar-checkout").addEventListener("click", cerrarCheckout);
   document.getElementById("checkout-cancelar").addEventListener("click", cerrarCheckout);
-  checkoutOverlayEl.addEventListener("click", function (e) {
+  checkoutOverlayEl.addEventListener("click", (e) => {
     if (e.target === checkoutOverlayEl) {
       cerrarCheckout();
     }
@@ -397,7 +382,7 @@ function escCheckout(e) {
 }
 
 function finalizarPedido(form) {
-  var total = totalPedido();
+  const total = totalPedido();
   form.reset();
   limpiarErrores(form);
   carrito = [];
@@ -416,8 +401,8 @@ function initTienda() {
 }
 
 function categoriasDisponibles() {
-  var lista = [];
-  productos.forEach(function (p) {
+  const lista = [];
+  productos.forEach((p) => {
     if (lista.indexOf(p.categoria) === -1) {
       lista.push(p.categoria);
     }
@@ -426,16 +411,16 @@ function categoriasDisponibles() {
 }
 
 function renderFiltros() {
-  var cont = document.getElementById("filtros");
-  var categorias = ["Todos"].concat(categoriasDisponibles());
-  categorias.forEach(function (cat) {
-    var b = document.createElement("button");
+  const cont = document.getElementById("filtros");
+  const categorias = ["Todos"].concat(categoriasDisponibles());
+  categorias.forEach((cat) => {
+    const b = document.createElement("button");
     b.type = "button";
     b.textContent = cat;
     b.dataset.categoria = cat;
     b.setAttribute("aria-pressed", cat === categoriaActiva ? "true" : "false");
     actualizaClaseFiltro(b, cat === categoriaActiva);
-    b.addEventListener("click", function () {
+    b.addEventListener("click", () => {
       seleccionarCategoria(cat);
     });
     cont.appendChild(b);
@@ -452,8 +437,8 @@ function actualizaClaseFiltro(boton, activo) {
 
 function seleccionarCategoria(cat) {
   categoriaActiva = cat;
-  document.querySelectorAll("#filtros button").forEach(function (b) {
-    var activo = b.dataset.categoria === cat;
+  document.querySelectorAll("#filtros button").forEach((b) => {
+    const activo = b.dataset.categoria === cat;
     actualizaClaseFiltro(b, activo);
     b.setAttribute("aria-pressed", activo ? "true" : "false");
   });
@@ -461,14 +446,12 @@ function seleccionarCategoria(cat) {
 }
 
 function renderProductos() {
-  var grid = document.getElementById("productos-grid");
-  var sinResultados = document.getElementById("sin-resultados");
+  const grid = document.getElementById("productos-grid");
+  const sinResultados = document.getElementById("sin-resultados");
 
-  var lista = categoriaActiva === "Todos"
+  const lista = categoriaActiva === "Todos"
     ? productos
-    : productos.filter(function (p) {
-        return p.categoria === categoriaActiva;
-      });
+    : productos.filter((p) => p.categoria === categoriaActiva);
 
   grid.innerHTML = "";
   sinResultados.classList.toggle("hidden", lista.length > 0);
@@ -477,25 +460,23 @@ function renderProductos() {
   if (lista.length === 0) {
     return;
   }
-  lista.forEach(function (p) {
+  lista.forEach((p) => {
     grid.appendChild(tarjetaProducto(p));
   });
 }
 
 function tarjetaProducto(p) {
-  var articulo = document.createElement("article");
+  const articulo = document.createElement("article");
   articulo.className = "fz-card flex flex-col overflow-hidden transition duration-200 hover:-translate-y-1";
   articulo.dataset.id = p.id;
 
-  var etiqueta = "";
-  if (p.etiqueta) {
-    etiqueta = '<span class="absolute left-3 top-3 rounded-full bg-accent px-2.5 py-1 text-xs font-extrabold uppercase text-ink">' + p.etiqueta + '</span>';
-  }
+  const etiqueta = p.etiqueta
+    ? '<span class="absolute left-3 top-3 rounded-full bg-accent px-2.5 py-1 text-xs font-extrabold uppercase text-ink">' + p.etiqueta + '</span>'
+    : "";
 
-  var precioAnterior = "";
-  if (p.precioAnterior) {
-    precioAnterior = '<p class="text-sm text-muted line-through">' + formatearPrecio(p.precioAnterior) + '</p>';
-  }
+  const precioAnterior = p.precioAnterior
+    ? '<p class="text-sm text-muted line-through">' + formatearPrecio(p.precioAnterior) + '</p>'
+    : "";
 
   articulo.innerHTML =
     '<div class="relative">' +
@@ -512,14 +493,14 @@ function tarjetaProducto(p) {
       '<button type="button" class="fz-btn fz-btn-primary mt-4 w-full" aria-label="Agregar ' + p.nombre + ' al carrito">Agregar al carrito</button>' +
     '</div>';
 
-  articulo.querySelector("button").addEventListener("click", function () {
+  articulo.querySelector("button").addEventListener("click", () => {
     agregarAlCarrito(p.id);
   });
 
   return articulo;
 }
 
-var coloresDeCategoria = {
+const coloresDeCategoria = {
   Bebidas: ["#3b82f6", "#06b6d4"],
   Suplementos: ["#facc15", "#f97316"],
   Ropa: ["#8b5cf6", "#ec4899"],
@@ -527,9 +508,12 @@ var coloresDeCategoria = {
 };
 
 function imagenProducto(p) {
-  var par = coloresDeCategoria[p.categoria] || ["#facc15", "#f97316"];
-  var letra = p.nombre.charAt(0).toUpperCase();
-  var svg =
+  if (p.imagen) {
+    return p.imagen;
+  }
+  const par = coloresDeCategoria[p.categoria] || ["#facc15", "#f97316"];
+  const letra = p.nombre.charAt(0).toUpperCase();
+  const svg =
     '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">' +
       '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
         '<stop offset="0" stop-color="' + par[0] + '"/><stop offset="1" stop-color="' + par[1] + '"/>' +
@@ -544,7 +528,7 @@ function imagenProducto(p) {
 /* ---------- Formularios ---------- */
 
 function initFormularios() {
-  inicializarFormulario("contacto-form", reglasContacto, function (form) {
+  inicializarFormulario("contacto-form", reglasContacto, (form) => {
     form.reset();
     limpiarErrores(form);
     mostrarToast("Mensaje enviado correctamente. Te contactaremos pronto.");
@@ -553,17 +537,17 @@ function initFormularios() {
 }
 
 function inicializarFormulario(idForm, reglas, alExito) {
-  var form = document.getElementById(idForm);
+  const form = document.getElementById(idForm);
   if (!form) {
     return;
   }
-  form.addEventListener("submit", function (e) {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
-    var valido = true;
-    reglas.forEach(function (r) {
-      var campo = form.querySelector("#" + r.id);
-      var valor = campo.value.trim();
-      var error = r.validar(valor);
+    let valido = true;
+    reglas.forEach((r) => {
+      const campo = form.querySelector("#" + r.id);
+      const valor = campo.value.trim();
+      const error = r.validar(valor);
       if (error) {
         valido = false;
         mostrarError(campo, error);
@@ -575,7 +559,7 @@ function inicializarFormulario(idForm, reglas, alExito) {
       alExito(form);
     }
   });
-  form.addEventListener("input", function (e) {
+  form.addEventListener("input", (e) => {
     if (e.target.classList.contains("input")) {
       limpiarError(e.target);
     }
@@ -583,8 +567,8 @@ function inicializarFormulario(idForm, reglas, alExito) {
 }
 
 function mostrarError(campo, mensaje) {
-  var errorId = campo.getAttribute("aria-describedby");
-  var errorEl = errorId ? document.getElementById(errorId) : null;
+  const errorId = campo.getAttribute("aria-describedby");
+  const errorEl = errorId ? document.getElementById(errorId) : null;
   campo.setAttribute("aria-invalid", "true");
   campo.classList.add("input-error");
   if (errorEl) {
@@ -593,8 +577,8 @@ function mostrarError(campo, mensaje) {
 }
 
 function limpiarError(campo) {
-  var errorId = campo.getAttribute("aria-describedby");
-  var errorEl = errorId ? document.getElementById(errorId) : null;
+  const errorId = campo.getAttribute("aria-describedby");
+  const errorEl = errorId ? document.getElementById(errorId) : null;
   campo.removeAttribute("aria-invalid");
   campo.classList.remove("input-error");
   if (errorEl) {
@@ -608,40 +592,40 @@ function limpiarErrores(form) {
 
 /* ---------- Reglas de validación ---------- */
 
-var RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function requerido(valor, mensaje) {
   return valor === "" ? mensaje : "";
 }
 
-function emaiValido(valor) {
+function emailValido(valor) {
   return RE_EMAIL.test(valor) ? "" : "Ingresa un correo electrónico válido.";
 }
 
-var reglasContacto = [
-  { id: "nombre", validar: function (v) { return requerido(v, "Ingresa tu nombre completo."); } },
-  { id: "correo", validar: function (v) { return requerido(v, "Ingresa tu correo electrónico.") || emaiValido(v); } },
-  { id: "mensaje", validar: function (v) { return requerido(v, "Escribe tu mensaje."); } }
+const reglasContacto = [
+  { id: "nombre", validar: (v) => requerido(v, "Ingresa tu nombre completo.") },
+  { id: "correo", validar: (v) => requerido(v, "Ingresa tu correo electrónico.") || emailValido(v) },
+  { id: "mensaje", validar: (v) => requerido(v, "Escribe tu mensaje.") }
 ];
 
-var reglasCheckout = [
-  { id: "cliente-nombre", validar: function (v) { return requerido(v, "Ingresa tu nombre completo."); } },
-  { id: "cliente-correo", validar: function (v) { return requerido(v, "Ingresa tu correo electrónico.") || emaiValido(v); } },
-  { id: "cliente-direccion", validar: function (v) { return requerido(v, "Ingresa tu dirección de entrega."); } }
+const reglasCheckout = [
+  { id: "cliente-nombre", validar: (v) => requerido(v, "Ingresa tu nombre completo.") },
+  { id: "cliente-correo", validar: (v) => requerido(v, "Ingresa tu correo electrónico.") || emailValido(v) },
+  { id: "cliente-direccion", validar: (v) => requerido(v, "Ingresa tu dirección de entrega.") }
 ];
 
 /* ---------- Toast ---------- */
 
 function mostrarToast(mensaje) {
-  var toast = document.getElementById("toast");
-  var texto = document.getElementById("toast-text");
+  const toast = document.getElementById("toast");
+  const texto = document.getElementById("toast-text");
   if (!toast || !texto) {
     return;
   }
   texto.textContent = mensaje;
   toast.classList.remove("opacity-0", "translate-y-24");
   clearTimeout(toast._timer);
-  toast._timer = setTimeout(function () {
+  toast._timer = setTimeout(() => {
     toast.classList.add("opacity-0", "translate-y-24");
   }, 2800);
 }
